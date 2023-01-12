@@ -13,7 +13,7 @@ class Multiplication(Scene):
             axis_config = {
                 'stroke_color': GRAY
             },
-            background_line_style= {
+            background_line_style = {
                 'stroke_color': GREY,
                 'stroke_opacity': 0.5
             }
@@ -25,7 +25,7 @@ class Multiplication(Scene):
                 axis_config = {
                     'stroke_color': BLUE
                 },
-                background_line_style= {
+                background_line_style = {
                     'stroke_color': BLUE,
                     'stroke_opacity': 0.5
                 }
