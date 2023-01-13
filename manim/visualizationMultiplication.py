@@ -2,6 +2,9 @@ from manim import *
 import math
 import numpy
 
+label1Text = ""
+label1Save = None
+
 class Multiplication(Scene):
     def construct(self):
         p1r = ValueTracker(1)
@@ -33,19 +36,29 @@ class Multiplication(Scene):
             .rotate(-numpy.arctan2(p1r.get_value(), p1i.get_value()))
             .scale(scale_factor = math.sqrt(p1r.get_value() ** 2 + p1i.get_value() ** 2))
         )
+        
+        point0 = Dot().move_to([0, 0, 0])
         point1 = always_redraw(lambda:
             Dot().move_to([p1r.get_value(), p1i.get_value(), 0])
         )
+        def getLabel1():
+            global label1Text
+            global label1Save
+            newText = f"{round(p1r.get_value(), 1)}+{round(p1i.get_value(), 1)}i"
+            if(label1Save is None or newText != label1Text):
+                label1Text = newText
+                label1Save = Tex(label1Text)
+            return label1Save.move_to([p1r.get_value(), p1i.get_value() - 0.4, 0])
+        label1 = always_redraw(getLabel1)
+        
         self.play(Create(fgPlane))
         self.add(bgPlane)
         self.bring_to_back(bgPlane)
-        self.play(Create(point1))
+        self.play(Create(point0))
+        self.play(Create(point1), Create(label1))
         self.wait(1)
         self.play(p1i.animate.set_value(2))
         self.play(p1r.animate.set_value(-2))
         self.play(p1i.animate.set_value(-3))
         self.play(p1i.animate.set_value(1), p1r.animate.set_value(2))
-        self.wait(1)
-        self.play(p1i.animate.set_value(0))
-        self.play(p1r.animate.set_value(0))
         self.wait(3)
