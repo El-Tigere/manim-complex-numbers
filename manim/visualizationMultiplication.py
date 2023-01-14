@@ -2,6 +2,13 @@ from manim import *
 import math
 import numpy
 
+class Formula(Scene):
+    def construct(self):
+        formula1 = Tex("(a + bi) * (c + di) = (ac - bd) + (bc + ad)i")
+        self.play(Create(formula1))
+        self.wait(3)
+        self.play(FadeOut(formula1, shift = UP))
+
 label1Text = ""
 label1Save = None
 
@@ -11,8 +18,8 @@ class Multiplication(Scene):
         p1i = ValueTracker(0)
         
         bgPlane = NumberPlane(
-            x_range=[-10, 10, 1],
-            y_range=[-10, 10, 1],
+            x_range = [-10, 10, 1],
+            y_range = [-10, 10, 1],
             axis_config = {
                 'stroke_color': GRAY
             },
@@ -23,8 +30,8 @@ class Multiplication(Scene):
         )
         fgPlane = always_redraw(lambda:
             NumberPlane(
-                x_range=[-10, 10, 1],
-                y_range=[-10, 10, 1],
+                x_range = [-10, 10, 1],
+                y_range = [-10, 10, 1],
                 axis_config = {
                     'stroke_color': BLUE
                 },
@@ -42,8 +49,7 @@ class Multiplication(Scene):
             Dot().move_to([p1r.get_value(), p1i.get_value(), 0])
         )
         def getLabel1():
-            global label1Text
-            global label1Save
+            global label1Text, label1Save
             newText = f"{round(p1r.get_value(), 1)}+{round(p1i.get_value(), 1)}i"
             if(label1Save is None or newText != label1Text):
                 label1Text = newText
