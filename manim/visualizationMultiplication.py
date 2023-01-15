@@ -96,9 +96,18 @@ class TransformedPlane(Scene):
                 "stroke_opacity": 1
             }
         ).add_coordinates()
-        p1 = Dot().move_to([1, 0, 0])
         
-        self.add(plane, ax, p1)
+        p1 = Dot().move_to([2, 0, 0])
+        l1 = Tex("$z_{1}$").move_to([p1.get_x() + .3, p1.get_y() + .3, 0])
+        p2 = Dot().move_to([1, -1, 0])
+        l2 = Tex("$z_{2}$").move_to([p2.get_x() + .3, p2.get_y() + .3, 0])
+        p3 = Dot().move_to([2, -2, 0])
+        l3 = Tex("$z_{3}$").move_to([p3.get_x() + .3, p3.get_y() + .3, 0])
+        
+        self.play(Create(ax), Create(plane))
+        self.play(Create(p1), Create(l1))
+        self.play(Create(p2), Create(l2))
+        self.play(Create(p3), Create(l3))
         self.wait(1)
 
 class ImaginaryBase(LinearBase):
