@@ -21,11 +21,11 @@ class Multiplication(Scene):
             x_range = [-10, 10, 1],
             y_range = [-10, 10, 1],
             axis_config = {
-                'stroke_color': GRAY
+                "stroke_color": GRAY
             },
             background_line_style = {
-                'stroke_color': GREY,
-                'stroke_opacity': 0.5
+                "stroke_color": GREY,
+                "stroke_opacity": 0.5
             }
         )
         fgPlane = always_redraw(lambda:
@@ -33,11 +33,11 @@ class Multiplication(Scene):
                 x_range = [-10, 10, 1],
                 y_range = [-10, 10, 1],
                 axis_config = {
-                    'stroke_color': BLUE
+                    "stroke_color": BLUE
                 },
                 background_line_style = {
-                    'stroke_color': BLUE,
-                    'stroke_opacity': 0.5
+                    "stroke_color": BLUE,
+                    "stroke_opacity": 0.5
                 }
             )
             .rotate(-numpy.arctan2(p1r.get_value(), p1i.get_value()))
@@ -68,3 +68,42 @@ class Multiplication(Scene):
         self.play(p1i.animate.set_value(-3))
         self.play(p1i.animate.set_value(1), p1r.animate.set_value(2))
         self.wait(3)
+
+class TransformedPlane(Scene):
+    def construct(self):
+        plane = NumberPlane(
+            axis_config = {
+                "stroke_color": GREY,
+                "stroke_opacity": 0
+            },
+            background_line_style = {
+                "stroke_color": GREY,
+                "stroke_opacity": 0.5
+            }
+        )
+        ax = Axes(
+            x_length = 20,
+            y_length = 20,
+            x_range = [-10, 10, 1],
+            y_range = [-10, 10, 1],
+            x_axis_config = {
+                "stroke_color": BLUE,
+                "stroke_opacity": 1
+            },
+            y_axis_config = {
+                "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True),
+                "stroke_color": BLUE,
+                "stroke_opacity": 1
+            }
+        ).add_coordinates()
+        p1 = Dot().move_to([1, 0, 0])
+        
+        self.add(plane, ax, p1)
+        self.wait(1)
+
+class ImaginaryBase(LinearBase):
+    def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
+        super().__init__(scale_factor)
+        self.custom_labels = custom_labels
+    def get_custom_labels(self, val_range):
+        return [f"{round(i)}i" for i in val_range]
