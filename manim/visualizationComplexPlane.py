@@ -27,6 +27,9 @@ class ComplexPlane(Scene):
         
         nl1 = NumberLine(x_range = [-10, 10, 1]).add_numbers()
         
+        pointEx = Dot().move_to([-3, 2, 0])
+        labelEx = Tex("-3+2i").move_to([-3, 1.64, 0])
+        
         plane1 = NumberPlane(
             axis_config = {
                 "stroke_color": GREY,
@@ -70,6 +73,9 @@ class ComplexPlane(Scene):
         
         self.bring_to_back(plane1)
         self.play(Create(plane1))
+        self.wait(3)
+        
+        self.play(Create(pointEx), Create(labelEx))
         self.wait(3)
 
 class ImaginaryBase(LinearBase):
