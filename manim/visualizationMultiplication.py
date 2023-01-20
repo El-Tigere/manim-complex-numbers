@@ -71,6 +71,7 @@ class Multiplication(Scene):
 
 class TransformedPlane(Scene):
     def construct(self):
+        # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
                 "stroke_color": GREY,
@@ -101,6 +102,7 @@ class TransformedPlane(Scene):
             }
         ).rotate(-numpy.arctan2(2, 1)).scale(math.sqrt(5))
         
+        # coordinates of p1, p2 and p3
         p1r = ValueTracker(1)
         p1i = ValueTracker(0)
         p2r = 2
@@ -108,6 +110,7 @@ class TransformedPlane(Scene):
         p3r = lambda: p1r.get_value() * p2r - p1i.get_value() * p2i
         p3i = lambda: p1r.get_value() * p2i + p1i.get_value() * p2r
         
+        # points p1, p2, p3 and labels
         p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0]))
         l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0]))
         p2 = Dot().move_to([p2r, p2i, 0])
@@ -115,23 +118,32 @@ class TransformedPlane(Scene):
         p3 = Dot(color = BLUE).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
         l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0]))
         
+        # path of p3
         path = TracedPath(traced_point_func = p3.get_center, stroke_color = BLUE)
         
+        # animation:
+        
+        # create complex plane and p1 and p2
         self.play(Create(plane1), Create(ax))
+        self.play(Create(p1), Create(l1))
         self.play(Create(p2), Create(l2))
         self.wait(1)
-        self.play(Create(p1), Create(l1))
-        self.wait(1)
+        
+        # create multiplication result (p3)
         self.play(Create(p3), Create(l3))
         self.add(path)
         self.bring_to_back(path)
         self.wait(1)
+        
+        # move p1 on the real axis
         self.play(p1r.animate.set_value(0))
         self.wait(1)
         self.play(p1r.animate.set_value(2))
         self.wait(1)
         self.play(p1r.animate.set_value(-2))
         self.wait(1)
+        
+        # move p1 on the imaginary axis
         self.play(p1r.animate.set_value(0))
         self.play(p1i.animate.set_value(1))
         self.wait(1)
@@ -139,15 +151,16 @@ class TransformedPlane(Scene):
         self.play(p1i.animate.set_value(-2))
         self.play(p1i.animate.set_value(0))
         self.wait(1)
+        
+        # create transformed plane
         self.play(Create(plane2))
         self.remove(path)
         self.play(FadeOut(p1), FadeOut(l1), FadeOut(p3), FadeOut(l3))
         self.wait(1)
-        
 
 class ImaginaryBase(LinearBase):
     def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
         super().__init__(scale_factor)
         self.custom_labels = custom_labels
     def get_custom_labels(self, val_range):
-        return [f"{round(i)}i" for i in val_range]
+        return [("i" if i == 1 else ("-i" if i == -1 else f"{round(i)}i")) for i in val_range]
