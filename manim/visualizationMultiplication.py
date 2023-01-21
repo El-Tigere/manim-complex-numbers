@@ -174,6 +174,67 @@ class TransformedPlane(Scene):
         self.play(FadeOut(p2), FadeOut(l2))
         self.wait(1)
 
+class Examples(Scene):
+    def construct(self):
+        # number planes and axis
+        plane1 = NumberPlane(
+            axis_config = {
+                "stroke_color": GREY,
+                "stroke_opacity": 0
+            },
+            background_line_style = {
+                "stroke_color": GREY,
+                "stroke_opacity": 0.5
+            }
+        )
+        ax = Axes(
+            x_length = 20,
+            y_length = 20,
+            x_range = [-10, 10, 1],
+            y_range = [-10, 10, 1],
+            y_axis_config = {
+                "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
+            }
+        ).add_coordinates()
+        
+        # points
+        p1 = Dot().move_to([1, 0.5, 0])
+        p2 = Dot().move_to([-3, 2, 0])
+        p3 = Dot().set_color(BLUE).move_to([-4, 0.5, 0])
+        
+        # arrows (badly organized)
+        a1 = Arrow(start = [0, 0, 0], end = [1, 0.5, 0], buff = 0.05)
+        a2 = Arrow(start = [0, 0, 0], end = [-1, -0.5, 0], buff = 0.05).set_color(BLUE)
+        a3 = Arrow(start = [-1, -0.5, 0], end = [-2, -1, 0], buff = 0.05).set_color(BLUE)
+        a4 = Arrow(start = [-2, -1, 0], end = [-3, -1.5, 0], buff = 0.05).set_color(BLUE)
+        a5 = Arrow(start = [-3, -1.5, 0], end = [-3.5, -0.5, 0], buff = 0.05).set_color(BLUE)
+        a6 = Arrow(start = [-3.5, -0.5, 0], end = [-4, 0.5, 0], buff = 0.05).set_color(BLUE)
+        
+        # animations:
+        
+        # add complex plane (no animation)
+        self.add(plane1, ax)
+        self.wait(1)
+        
+        # create example factors
+        self.play(Create(p1), Create(p2))
+        self.wait(1)
+        
+        # create arrows
+        self.play(Create(a1))
+        self.wait(1)
+        self.play(Create(a2))
+        self.play(Create(a3))
+        self.play(Create(a4))
+        self.wait(1)
+        self.play(Create(a5))
+        self.play(Create(a6))
+        self.wait(1)
+        
+        # show p3 (result)
+        self.play(Create(p3))
+        self.wait(1)
+
 class ImaginaryBase(LinearBase):
     def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
         super().__init__(scale_factor)
