@@ -121,6 +121,13 @@ class TransformedPlane(Scene):
         # path of p3
         path = TracedPath(traced_point_func = p3.get_center, stroke_color = BLUE)
         
+        # transformed plane labels
+        tpl =  VGroup()
+        tpl.add(Tex("1").set_color(BLUE).move_to([2 - 0.2, 1 - 0.4, 0]))
+        tpl.add(Tex("-1").set_color(BLUE).move_to([-2 - 0.2, -1 - 0.4, 0]))
+        tpl.add(Tex("i").set_color(BLUE).move_to([-1 - 0.2, 2 - 0.4, 0]))
+        tpl.add(Tex("-i").set_color(BLUE).move_to([1 - 0.2, -2 - 0.4, 0]))
+        
         # animation:
         
         # create complex plane and p1 and p2
@@ -156,6 +163,15 @@ class TransformedPlane(Scene):
         self.play(Create(plane2))
         self.remove(path)
         self.play(FadeOut(p1), FadeOut(l1), FadeOut(p3), FadeOut(l3))
+        self.wait(1)
+        
+        # show where 1, -1, i and -1 are on the transformed plane
+        self.play(Create(tpl))
+        self.wait(1)
+        
+        # remove transformed plane
+        self.play(FadeOut(plane2), FadeOut(tpl))
+        self.play(FadeOut(p2), FadeOut(l2))
         self.wait(1)
 
 class ImaginaryBase(LinearBase):
