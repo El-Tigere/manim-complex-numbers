@@ -2,6 +2,14 @@ from manim import *
 import math
 import numpy
 
+class Title(Scene):
+    def construct(self):
+        title = Tex("Division")
+        title.font_size = 80
+        self.play(Create(title))
+        self.wait(3)
+        self.play(FadeOut(title, shift = UP))
+
 class TransformedPlane(Scene):
     def construct(self):
         plane1 = NumberPlane(
@@ -49,7 +57,6 @@ class TransformedPlane(Scene):
         l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0]))
         p3 = Dot(color = BLUE).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
         l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0]))
-        
         
         # animation:
         

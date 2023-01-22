@@ -2,12 +2,13 @@ from manim import *
 import math
 import numpy
 
-class Formula(Scene):
+class Title(Scene):
     def construct(self):
-        formula1 = Tex("(a + bi) * (c + di) = (ac - bd) + (bc + ad)i")
-        self.play(Create(formula1))
+        title = Tex("Multiplikation")
+        title.font_size = 80
+        self.play(Create(title))
         self.wait(3)
-        self.play(FadeOut(formula1, shift = UP))
+        self.play(FadeOut(title, shift = UP))
 
 label1Text = ""
 label1Save = None

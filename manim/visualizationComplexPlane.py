@@ -1,5 +1,13 @@
 from manim import *
 
+class Title(Scene):
+    def construct(self):
+        title = Tex("Die komplexe Ebene")
+        title.font_size = 80
+        self.play(Create(title))
+        self.wait(3)
+        self.play(FadeOut(title, shift = UP))
+
 class ComplexPlane(Scene):
     def construct(self):
         # natural points
