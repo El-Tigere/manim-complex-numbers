@@ -235,7 +235,6 @@ class Examples(Scene):
         # show p3 (result)
         self.play(Create(p3))
         self.wait(1)
-        
 
 class ImaginaryBase(LinearBase):
     def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
