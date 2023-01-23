@@ -1,0 +1,35 @@
+\subsection{Zahlbereichserweiterung}
+
+\parbox{0.9\textwidth}{
+    Ziel ist es Gleichungen wie $\mathbf{x^2 + 1 = 0}$ zu lösen.
+    Man definiert dazu nun eine Einheit $\mathbf{i}$ mit der Eigenschaft $\mathbf{i^2 = -1}$.
+    Für so eine Zahl ist nun jedoch kein Platz mehr in der Zahlengerade, 
+    deshalb erweitert man die Zahlengerade mit den Reelen Zahlen zu einer \textbf{Zahlenebene}.
+    Somit sind die komplexen Zahlen eine \textbf{Erweiterung der Reellen Zahlen}.
+    Dies wird auch \textbf{Zahlbereichserweiterung} genannt
+}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        samples=100,
+        axis lines=center,
+        x=1cm,
+        y=1cm,
+        xmin=-5, xmax=5,
+        ymin=-5, ymax=5,
+        xtick={-4, -3,...,4},
+        ytick={-4, -3,...,4},
+        xticklabels={$-5$,$-4$,$-3$,$-2$,$-1$,$1$,$2$,$3$,$4$,$5$},
+        yticklabels={$-5i$,$-4i$,$-3i$,$-2i$,$-1i$,$1i$,$2i$,$3i$,$4i$,$5i$},
+        xlabel=$\mathbb{R}$,
+        ylabel=$\mathbb{C}$
+    ]
+    
+    \draw[->] (0, 0) -- (2, 3) node[above right]{a + bi};
+
+    
+    \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt}] (0, 3) -- (2, 3) node[midway, above, yshift=5pt]{a};
+    \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt,mirror}] (2, 0) -- (2, 3) node[midway, right, xshift=5pt]{b};
+
+    \end{axis}
+\end{tikzpicture}
