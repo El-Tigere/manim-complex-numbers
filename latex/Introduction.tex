@@ -9,22 +9,46 @@
     Dies wird auch \textbf{Zahl(en)bereichserweiterung} genannt
 } 
 
+\subsection{Einführung}
+
+\parbox{0.9\textwidth}
+{
+    Eine komplexe Zahl $\mathbf{z \in  \mathbb{C}}$ ist \textbf{ein Wertepaar} $\mathbf{(a; b)}$, wobei $\mathbf{a}$ den \textbf{Realenteil} und $\mathbf{b}$ den \textbf{Imaginärteil} darstellt.
+
+    \begin{tabular}{c|c}
+        \parbox{0.45\textwidth}
+        {
+            \begin{alignat*}{3}
+                &z &&= \left(a; b\right) \qquad z \in \mathbb{C} \\ 
+                &a &&= \mbox{Re}(z) \\ 
+                &b &&= \mbox{Im}(z) \\
+            \end{alignat*}
+        }
+        &
+        \parbox{0.45\textwidth}
+        {
+            \begin{alignat*}{3}
+                &\left(a; b\right) + \left(c; d\right) &&= \left(a + c; b + d\right) \\
+                &\left(a; b\right) - \left(c; d\right) &&= \left(a - c; b - d\right) \\
+                &\left(a; b\right) \cdot \left(c; d\right) &&= \left(ac - bd; ad + bc\right) \\
+            \end{alignat*}
+        }
+    \end{tabular}
+}
+
 \subsection{Komplexe Zahlen als Vektorraum}
 
 \parbox{0.9\textwidth}
 {
     Eine komplexe Zahl als Wertepaar kann mit einem Vektor im Vektorraum $\mathbb{R}^2$ verglichen werden,
     wobei auch Rechenarten, wie Addition und Multiplikation analog zur Vektoraddition und Vektormultiplikation sind.
-    Der Vektorraum bei komplexen Zahlen hat wie der Vektorraum von $\mathbb{R}^2$ zwei Kooridnatenachsen.
-    Dabei gibt die x-Achse den reelen Anteil und die y-Achse den imaginären Anteil der komplexen Zahl an.
-    Für die Darstelling komplexer Zahlen wird die Gleichung 
+    Der Vektorraum bei komplexen Zahlen hat wie der Vektorraum von $\mathbb{R}^2$ zwei Koordinatenachsen.
+    Dabei gibt die x-Achse den reellen Anteil und die y-Achse den imaginären Anteil der komplexen Zahl an.
+    Für die Darstellung komplexer Zahlen wird die Gleichung 
     $\mathbf{z = \left(a; b\right) = a \cdot \left(1; 0\right) + b \cdot \left(0;1\right)}$ verwendet.
     Dabei ist das Wertepaar $\mathbf{\left(1; 0\right) = 1}$ als Einselement definiert, während das Wertepaar 
     $\mathbf{\left(0; 1\right) = i}$ angibt. Es ergibt sich also folgende Gleichung: 
     $\mathbf{z = a \cdot 1 + b \cdot i = a + bi}$.
-
-    Eine komplexe Zahl $\mathbf{z}$ ist nun \textbf{ein Punkt} $\mathbf{\left(a;b\right)}$ auf der Zahlenebene,
-    wobei $\mathbf{a}$ \textbf{die Reele und} $\mathbf{b}$ \textbf{die imaginäre Komponente der Zahl} $\mathbf{z}$ \textbf{ist}.
 }
 
 \subsubsection{Arithmetik}
@@ -48,10 +72,12 @@
             ytick={-4, -3,...,3, 4},
             xticklabels={$-4$,$-3$,$-2$,$-1$,$0$,$1$,$2$,$3$,$4$},
             yticklabels={$-4i$,$-3i$,$-2i$,$-1i$,$0i$,$1i$,$2i$,$3i$,$4i$},
-            xlabel=$\Re$,
-            ylabel=$\Im$
+            xlabel=$\mbox{Re}$,
+            ylabel=$\mbox{Im}$
         ]
-        
+
+        \draw[fill] (2, 3) circle[radius=2pt, fill] node[above right]{ z };
+
         \draw[->] (0, 0) -- (2, 3) node[above right]{ z };
         
         \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt}] (0, 3) -- (2, 3) node[midway, above, yshift=5pt]{a};
