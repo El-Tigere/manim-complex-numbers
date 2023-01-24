@@ -10,6 +10,8 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 
+\usepackage{enumitem}
+
 \lhead{Name:}
 
 \chead{Komplexe Zahlen $\mathbb{C}$}
@@ -24,21 +26,34 @@
 
     \large  
 
-    \section{Komplexe Zahlen wasserdicht}
-
-    \input{Introduction.tex}
-
     \section{Komplexe Zahlen $\mathbb{C}$}
 
-    \subsection{Arithmetik}
+    %\input{Introduction.tex}
 
-    \begin{alignat*}{4}
-        &z_1 + z_2       &&= (a + bi) + (c + di)     &&= (a + c) + (b + d)i \\
-        &z_1 - z_2       &&= (a + bi) - (c + di)     &&= (a - c) + (b - d)i \\
-        &z_1 \cdot z_2   &&= (a + bi) \cdot (c + di) &&= (ac - bd) + (ad + bc)i \\
-        &\frac{z_1}{z_2} &&= \frac{a + bi}{c + di}   &&= \frac{ac + bd}{c^2 + d^2} + \frac{bc - ad}{c^2 + d^2}i
-    \end{alignat*}
+    \subsection{Zahlbereichserweiterung}
 
-    \section{Aufgaben zu Komplexen Zahlen}
+    \input{Zahlenbereichserweiterung.tex}
+
+    \subsection{Einführung}
+
+    \input{Einführung.tex}
+
+    \subsection{Komplexe Zahlen als Vektorraum}
+
+    \input{Vektorraum.tex}
+
+    \subsection{Sind die reellen Zahlen wirklich eine Teilmenge von den komplexen Zahlen?}
+
+    \input{StecktRinC.tex}
+
+    %\newpage
+
+    %\subsection{Arithmetik}
+
+    %\input{Arithmetik.tex}
+
+    \subsection{Aufgaben}
+
+    \input{Exercises.tex}
 
 \end{document}
