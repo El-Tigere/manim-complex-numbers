@@ -4,32 +4,60 @@
     Ziel ist es Gleichungen wie $\mathbf{x^2 + 1 = 0}$ zu lösen.
     Man definiert dazu nun eine Einheit $\mathbf{i}$ mit der Eigenschaft $\mathbf{i^2 = -1}$.
     Für so eine Zahl ist nun jedoch kein Platz mehr in der Zahlengerade, 
-    deshalb erweitert man die Zahlengerade mit den Reelen Zahlen zu einer \textbf{Zahlenebene}.
+    deshalb erweitert man die Zahlengerade mit den Komplexen Zahlen zu einer \textbf{Zahlenebene}.
     Somit sind die komplexen Zahlen eine \textbf{Erweiterung der Reellen Zahlen}.
-    Dies wird auch \textbf{Zahlbereichserweiterung} genannt
+    Dies wird auch \textbf{Zahl(en)bereichserweiterung} genannt
+} 
+
+\subsection{Komplexe Zahlen als Vektorraum}
+
+\parbox{0.9\textwidth}
+{
+    Eine komplexe Zahl als Wertepaar kann mit einem Vektor im Vektorraum $\mathbb{R}^2$ verglichen werden,
+    wobei auch Rechenarten, wie Addition und Multiplikation analog zur Vektoraddition und Vektormultiplikation sind.
+    Der Vektorraum bei komplexen Zahlen hat wie der Vektorraum von $\mathbb{R}^2$ zwei Kooridnatenachsen.
+    Dabei gibt die x-Achse den reelen Anteil und die y-Achse den imaginären Anteil der komplexen Zahl an.
+    Für die Darstelling komplexer Zahlen wird die Gleichung 
+    $\mathbf{z = \left(a; b\right) = a \cdot \left(1; 0\right) + b \cdot \left(0;1\right)}$ verwendet.
+    Dabei ist das Wertepaar $\mathbf{\left(1; 0\right) = 1}$ als Einselement definiert, während das Wertepaar 
+    $\mathbf{\left(0; 1\right) = i}$ angibt. Es ergibt sich also folgende Gleichung: 
+    $\mathbf{z = a \cdot 1 + b \cdot i = a + bi}$.
+
+    Eine komplexe Zahl $\mathbf{z}$ ist nun \textbf{ein Punkt} $\mathbf{\left(a;b\right)}$ auf der Zahlenebene,
+    wobei $\mathbf{a}$ \textbf{die Reele und} $\mathbf{b}$ \textbf{die imaginäre Komponente der Zahl} $\mathbf{z}$ \textbf{ist}.
 }
 
-\begin{tikzpicture}
-    \begin{axis}[
-        samples=100,
-        axis lines=center,
-        x=1cm,
-        y=1cm,
-        xmin=-5, xmax=5,
-        ymin=-5, ymax=5,
-        xtick={-4, -3,...,4},
-        ytick={-4, -3,...,4},
-        xticklabels={$-5$,$-4$,$-3$,$-2$,$-1$,$1$,$2$,$3$,$4$,$5$},
-        yticklabels={$-5i$,$-4i$,$-3i$,$-2i$,$-1i$,$1i$,$2i$,$3i$,$4i$,$5i$},
-        xlabel=$\mathbb{R}$,
-        ylabel=$\mathbb{C}$
-    ]
-    
-    \draw[->] (0, 0) -- (2, 3) node[above right]{a + bi};
+\subsubsection{Arithmetik}
 
-    
-    \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt}] (0, 3) -- (2, 3) node[midway, above, yshift=5pt]{a};
-    \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt,mirror}] (2, 0) -- (2, 3) node[midway, right, xshift=5pt]{b};
+\begin{alignat*}{5}
+    &z_1 + z_2     &&= \left(a_1; b_1\right) + \left(a_2; b_2\right)     &&= \left(a_1 + a_2; b_1 + b_2\right) \\
+    &z_1 - z_2     &&= \left(a_1; b_1\right) - \left(a_2; b_2\right)     &&= \left(a_1 - a_2; b_1 - b_2\right) \\
+    &z_1 \cdot z_2 &&= \left(a_1; b_1\right) \cdot \left(a_2; b_2\right) &&= \left(a_1 \cdot a_2 - b_1 \cdot b_2; a_1 \cdot b_2 + a_2 \cdot b_1\right)
+\end{alignat*}
 
-    \end{axis}
-\end{tikzpicture}
+\resizebox{10cm}{10cm}{
+    \begin{tikzpicture}
+        \begin{axis}[
+            samples=100,
+            axis lines=center,
+            x=1cm,
+            y=1cm,
+            xmin=-5, xmax=5,
+            ymin=-5, ymax=5,
+            xtick={-4, -3,...,3, 4},
+            ytick={-4, -3,...,3, 4},
+            xticklabels={$-4$,$-3$,$-2$,$-1$,$0$,$1$,$2$,$3$,$4$},
+            yticklabels={$-4i$,$-3i$,$-2i$,$-1i$,$0i$,$1i$,$2i$,$3i$,$4i$},
+            xlabel=$\Re$,
+            ylabel=$\Im$
+        ]
+        
+        \draw[->] (0, 0) -- (2, 3) node[above right]{ z };
+        
+        \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt}] (0, 3) -- (2, 3) node[midway, above, yshift=5pt]{a};
+        \draw[decorate, decoration = {brace,amplitude=6pt,raise=1pt,mirror}] (2, 0) -- (2, 3) node[midway, right, xshift=5pt]{b};
+
+        \end{axis}
+    \end{tikzpicture}
+}
+
