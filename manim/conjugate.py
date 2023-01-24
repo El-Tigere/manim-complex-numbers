@@ -4,14 +4,15 @@ import numpy
 
 class Title(Scene):
     def construct(self):
-        title = Tex("Division").set_color(BLACK)
+        title = Tex("Konjugation").set_color(BLACK)
         title.font_size = 80
         self.play(Create(title))
         self.wait(3)
         self.play(FadeOut(title, shift = UP))
 
-class TransformedPlane(Scene):
+class Conjugate(Scene):
     def construct(self):
+        # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
                 "stroke_color": GREY,
@@ -28,7 +29,7 @@ class TransformedPlane(Scene):
             x_range = [-10, 10, 1],
             y_range = [-10, 10, 1],
             y_axis_config = {
-                "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
+                "scaling": ImaginaryBase()
             }
         ).add_coordinates().set_color(BLACK)
         plane2 = NumberPlane(
@@ -40,23 +41,19 @@ class TransformedPlane(Scene):
                 "stroke_color": DARK_BLUE,
                 "stroke_opacity": 0.5
             }
-        ).rotate(-numpy.arctan2(2, 1)).scale(math.sqrt(5))
+        ).rotate(-numpy.arctan2(1, 2)).scale(math.sqrt(5))
         
-        # coordinates of p1, p2 and p3
-        p1r = ValueTracker(4)
-        p1i = ValueTracker(2)
-        p2r = 2
-        p2i = 1
-        p3r = lambda: (p1r.get_value() * p2r + p1i.get_value() * p2i) / (p2r * p2r + p2i * p2i)
-        p3i = lambda: (p1i.get_value() * p2r - p1r.get_value() * p2i) / (p2r * p2r + p2i * p2i)
+        # points
+        p1 = Dot().move_to([1, 2, 0]).set_color(BLACK)
+        l1 = Tex("a+bi").move_to([1.75, 2, 0]).set_color(BLACK)
+        p2 = Dot().move_to([1, -2, 0]).set_color(BLACK)
+        l2 = Tex("a-bi").move_to([1.75, -2, 0]).set_color(BLACK)
+        p3 = Dot().move_to([5, 0, 0]).set_color(BLACK)
         
-        # points p1, p2, p3 and labels
-        p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0])).set_color(BLACK)
-        l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0])).set_color(BLACK)
-        p2 = Dot(color = DARK_BLUE).move_to([p2r, p2i, 0])
-        l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0])).set_color(BLACK)
-        p3 = Dot().add_updater(lambda x: x.move_to([p3r(), p3i(), 0])).set_color(BLACK)
-        l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0])).set_color(BLACK)
+        # arrows
+        a1 = Arrow(start = [0, 0, 0], end = [1, 2, 0], stroke_width = 5, buff = 0.05).set_color(BLACK)
+        a2 = Arrow(start = [1, 2, 0], end = [3, 1, 0], stroke_width = 5, buff = 0.05).set_color(BLACK)
+        a3 = Arrow(start = [3, 1, 0], end = [5, 0, 0], stroke_width = 5, buff = 0.05).set_color(BLACK)
         
         # animation:
         
@@ -64,26 +61,29 @@ class TransformedPlane(Scene):
         self.play(Create(plane1), Create(ax))
         self.wait(1)
         
-        # create divisor point and transformed plane
-        self.play(Create(plane2))
+        # create point
+        self.play(Create(p1), Create(l1))
         self.play(Create(p2), Create(l2))
         self.wait(1)
         
-        # create dividend and result
-        self.play(Create(p1), Create(l1))
-        self.play(Create(p3), Create(l3))
+        # highlight x-axis
+        self.play(Indicate(ax.get_x_axis(), color = DARK_BLUE))
         self.wait(1)
         
-        # move dividend
-        self.play(p1r.animate.set_value(4.5), p1i.animate.set_value(1))
+        # create transformed Plane
+        self.bring_to_back(plane2)
+        self.play(Create(plane2))
         self.wait(1)
-        self.play(p1r.animate.set_value(3), p1i.animate.set_value(-1))
-        self.wait(1)
-        self.play(p1r.animate.set_value(4), p1i.animate.set_value(-3))
+        
+        # create arrows
+        self.play(Create(a1))
+        self.play(Create(a2))
+        self.play(Create(a3))
+        self.play(Create(p3))
         self.wait(1)
         
         # remove objects
-        self.play(FadeOut(plane2), FadeOut(p1), FadeOut(l1), FadeOut(p2), FadeOut(l2), FadeOut(p3), FadeOut(l3))
+        self.play(FadeOut(p1), FadeOut(l1), FadeOut(p2), FadeOut(l2), FadeOut(plane2), FadeOut(a1), FadeOut(a2), FadeOut(a3), FadeOut(p3))
         self.wait(1)
         self.play(FadeOut(plane1), FadeOut(ax))
 
