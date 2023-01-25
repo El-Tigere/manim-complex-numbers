@@ -2,13 +2,16 @@ from manim import *
 
 class Title(Scene):
     def construct(self):
-        title = Tex("Betrag").set_color(BLACK)
+        title = Tex("Betrag")
         title.font_size = 80
         self.play(Create(title))
         self.wait(3)
         self.play(FadeOut(title, shift = UP))
 
 class Abs(Scene):
+    COLORS = {
+        "highlight": BLUE
+    }
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
@@ -29,21 +32,21 @@ class Abs(Scene):
             y_axis_config = {
                 "scaling": ImaginaryBase()
             }
-        ).add_coordinates().set_color(BLACK)
+        ).add_coordinates()
         
         # point
-        p1 = Dot().move_to([3, 2, 0]).set_color(BLACK)
-        l1 = Tex("a+bi").move_to([3.75, 2, 0]).set_color(BLACK)
+        p1 = Dot().move_to([3, 2, 0])
+        l1 = Tex("a+bi").move_to([3.75, 2, 0])
         
         # triangle
-        arrow1 = DoubleArrow([0, 0, 0], [3, 2, 0], stroke_width = 5, buff = 0).set_color(DARK_BLUE)
-        line1 = DashedLine([0, 0, 0], [3, 0, 0], dash_length = 0.2, stroke_width = 5).set_color(DARK_BLUE)
-        line2 = DashedLine([3, 0, 0], [3, 2, 0], dash_length = 0.2, stroke_width = 5).set_color(DARK_BLUE)
+        arrow1 = DoubleArrow([0, 0, 0], [3, 2, 0], stroke_width = 5, buff = 0).set_color(self.COLORS["highlight"])
+        line1 = DashedLine([0, 0, 0], [3, 0, 0], dash_length = 0.2, stroke_width = 5).set_color(self.COLORS["highlight"])
+        line2 = DashedLine([3, 0, 0], [3, 2, 0], dash_length = 0.2, stroke_width = 5).set_color(self.COLORS["highlight"])
         
         # triangle labels
-        l2 = Tex("a").move_to([1.5, -0.25, 0]).set_color(DARK_BLUE)
-        l3 = Tex("b").move_to([3.25, 1, 0]).set_color(DARK_BLUE)
-        l4 = Tex("$\\sqrt{a^2+b^2}$").move_to([0.75, 1.5, 0]).set_color(DARK_BLUE)
+        l2 = Tex("a").move_to([1.5, -0.25, 0]).set_color(self.COLORS["highlight"])
+        l3 = Tex("b").move_to([3.25, 1, 0]).set_color(self.COLORS["highlight"])
+        l4 = Tex("$\\sqrt{a^2+b^2}$").move_to([0.75, 1.5, 0]).set_color(self.COLORS["highlight"])
         
         # animation:
         

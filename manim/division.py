@@ -4,13 +4,16 @@ import numpy
 
 class Title(Scene):
     def construct(self):
-        title = Tex("Division").set_color(BLACK)
+        title = Tex("Division")
         title.font_size = 80
         self.play(Create(title))
         self.wait(3)
         self.play(FadeOut(title, shift = UP))
 
 class TransformedPlane(Scene):
+    COLORS = {
+        "highlight": BLUE
+    }
     def construct(self):
         plane1 = NumberPlane(
             axis_config = {
@@ -30,14 +33,14 @@ class TransformedPlane(Scene):
             y_axis_config = {
                 "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
             }
-        ).add_coordinates().set_color(BLACK)
+        ).add_coordinates()
         plane2 = NumberPlane(
             axis_config = {
-                "stroke_color": DARK_BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 1
             },
             background_line_style = {
-                "stroke_color": DARK_BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 0.5
             }
         ).rotate(-numpy.arctan2(2, 1)).scale(math.sqrt(5))
@@ -51,12 +54,12 @@ class TransformedPlane(Scene):
         p3i = lambda: (p1i.get_value() * p2r - p1r.get_value() * p2i) / (p2r * p2r + p2i * p2i)
         
         # points p1, p2, p3 and labels
-        p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0])).set_color(BLACK)
-        l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0])).set_color(BLACK)
-        p2 = Dot(color = DARK_BLUE).move_to([p2r, p2i, 0])
-        l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0])).set_color(BLACK)
-        p3 = Dot().add_updater(lambda x: x.move_to([p3r(), p3i(), 0])).set_color(BLACK)
-        l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0])).set_color(BLACK)
+        p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0]))
+        l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0]))
+        p2 = Dot(color = self.COLORS["highlight"]).move_to([p2r, p2i, 0])
+        l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0]))
+        p3 = Dot().add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
+        l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0]))
         
         # animation:
         

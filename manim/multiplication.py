@@ -4,7 +4,7 @@ import numpy
 
 class Title(Scene):
     def construct(self):
-        title = Tex("Multiplikation").set_color(BLACK)
+        title = Tex("Multiplikation")
         title.font_size = 80
         self.play(Create(title))
         self.wait(3)
@@ -14,6 +14,9 @@ label1Text = ""
 label1Save = None
 
 class Multiplication(Scene):
+    COLORS = {
+        "highlight": BLUE
+    }
     def construct(self):
         p1r = ValueTracker(1)
         p1i = ValueTracker(0)
@@ -37,7 +40,7 @@ class Multiplication(Scene):
             y_axis_config = {
                 "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
             }
-        ).add_coordinates().set_color(BLACK)
+        ).add_coordinates()
         #bgPlane = NumberPlane(
         #    x_range = [-10, 10, 1],
         #    y_range = [-10, 10, 1],
@@ -54,10 +57,10 @@ class Multiplication(Scene):
                 x_range = [-10, 10, 1],
                 y_range = [-10, 10, 1],
                 axis_config = {
-                    "stroke_color": DARK_BLUE
+                    "stroke_color": self.COLORS["highlight"]
                 },
                 background_line_style = {
-                    "stroke_color": DARK_BLUE,
+                    "stroke_color": self.COLORS["highlight"],
                     "stroke_opacity": 0.5
                 }
             )
@@ -65,16 +68,16 @@ class Multiplication(Scene):
             .scale(scale_factor = math.sqrt(p1r.get_value() ** 2 + p1i.get_value() ** 2))
         )
         
-        point0 = Dot().move_to([0, 0, 0]).set_color(BLACK)
+        point0 = Dot().move_to([0, 0, 0])
         point1 = always_redraw(lambda:
-            Dot().move_to([p1r.get_value(), p1i.get_value(), 0]).set_color(BLACK)
+            Dot().move_to([p1r.get_value(), p1i.get_value(), 0])
         )
         def getLabel1():
             global label1Text, label1Save
             newText = f"{round(p1r.get_value(), 1)}+{round(p1i.get_value(), 1)}i"
             if(label1Save is None or newText != label1Text):
                 label1Text = newText
-                label1Save = Tex(label1Text).set_color(BLACK)
+                label1Save = Tex(label1Text)
             return label1Save.move_to([p1r.get_value(), p1i.get_value() - 0.4, 0])
         label1 = always_redraw(getLabel1)
         
@@ -98,6 +101,9 @@ class Multiplication(Scene):
         self.wait(1)
 
 class TransformedPlane(Scene):
+    COLORS = {
+        "highlight": BLUE
+    }
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
@@ -118,14 +124,14 @@ class TransformedPlane(Scene):
             y_axis_config = {
                 "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
             }
-        ).add_coordinates().set_color(BLACK)
+        ).add_coordinates()
         plane2 = NumberPlane(
             axis_config = {
-                "stroke_color": DARK_BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 1
             },
             background_line_style = {
-                "stroke_color": DARK_BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 0.5
             }
         ).rotate(-numpy.arctan2(2, 1)).scale(math.sqrt(5))
@@ -139,22 +145,22 @@ class TransformedPlane(Scene):
         p3i = lambda: p1r.get_value() * p2i + p1i.get_value() * p2r
         
         # points p1, p2, p3 and labels
-        p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0])).set_color(BLACK)
-        l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0])).set_color(BLACK)
-        p2 = Dot().move_to([p2r, p2i, 0]).set_color(BLACK)
-        l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0])).set_color(BLACK)
-        p3 = Dot(color = DARK_BLUE).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
-        l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0])).set_color(BLACK)
+        p1 = Dot().add_updater(lambda x: x.move_to([p1r.get_value(), p1i.get_value(), 0]))
+        l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0]))
+        p2 = Dot().move_to([p2r, p2i, 0])
+        l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0]))
+        p3 = Dot(color = self.COLORS["highlight"]).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
+        l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0]))
         
         # path of p3
-        path = TracedPath(traced_point_func = p3.get_center, stroke_color = DARK_BLUE)
+        path = TracedPath(traced_point_func = p3.get_center, stroke_color = self.COLORS["highlight"])
         
         # transformed plane labels
         tpl =  VGroup()
-        tpl.add(Tex("1").set_color(DARK_BLUE).move_to([2 - 0.2, 1 - 0.4, 0]))
-        tpl.add(Tex("-1").set_color(DARK_BLUE).move_to([-2 - 0.2, -1 - 0.4, 0]))
-        tpl.add(Tex("i").set_color(DARK_BLUE).move_to([-1 - 0.2, 2 - 0.4, 0]))
-        tpl.add(Tex("-i").set_color(DARK_BLUE).move_to([1 - 0.2, -2 - 0.4, 0]))
+        tpl.add(Tex("1").set_color(self.COLORS["highlight"]).move_to([2 - 0.2, 1 - 0.4, 0]))
+        tpl.add(Tex("-1").set_color(self.COLORS["highlight"]).move_to([-2 - 0.2, -1 - 0.4, 0]))
+        tpl.add(Tex("i").set_color(self.COLORS["highlight"]).move_to([-1 - 0.2, 2 - 0.4, 0]))
+        tpl.add(Tex("-i").set_color(self.COLORS["highlight"]).move_to([1 - 0.2, -2 - 0.4, 0]))
         
         # animation:
         
@@ -203,6 +209,9 @@ class TransformedPlane(Scene):
         self.wait(1)
 
 class Examples(Scene):
+    COLORS = {
+        "highlight": BLUE
+    }
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
@@ -223,20 +232,20 @@ class Examples(Scene):
             y_axis_config = {
                 "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
             }
-        ).add_coordinates().set_color(BLACK)
+        ).add_coordinates()
         
         # points
-        p1 = Dot().move_to([1, 0.5, 0]).set_color(BLACK)
-        p2 = Dot().move_to([-3, 2, 0]).set_color(BLACK)
-        p3 = Dot().set_color(DARK_BLUE).move_to([-4, 0.5, 0])
+        p1 = Dot().move_to([1, 0.5, 0])
+        p2 = Dot().move_to([-3, 2, 0])
+        p3 = Dot().set_color(self.COLORS["highlight"]).move_to([-4, 0.5, 0])
         
         # arrows (badly organized)
-        a1 = Arrow(start = [0, 0, 0], end = [1, 0.5, 0], buff = 0.05).set_color(BLACK)
-        a2 = Arrow(start = [0, 0, 0], end = [-1, -0.5, 0], buff = 0.05).set_color(DARK_BLUE)
-        a3 = Arrow(start = [-1, -0.5, 0], end = [-2, -1, 0], buff = 0.05).set_color(DARK_BLUE)
-        a4 = Arrow(start = [-2, -1, 0], end = [-3, -1.5, 0], buff = 0.05).set_color(DARK_BLUE)
-        a5 = Arrow(start = [-3, -1.5, 0], end = [-3.5, -0.5, 0], buff = 0.05).set_color(DARK_BLUE)
-        a6 = Arrow(start = [-3.5, -0.5, 0], end = [-4, 0.5, 0], buff = 0.05).set_color(DARK_BLUE)
+        a1 = Arrow(start = [0, 0, 0], end = [1, 0.5, 0], buff = 0.05)
+        a2 = Arrow(start = [0, 0, 0], end = [-1, -0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a3 = Arrow(start = [-1, -0.5, 0], end = [-2, -1, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a4 = Arrow(start = [-2, -1, 0], end = [-3, -1.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a5 = Arrow(start = [-3, -1.5, 0], end = [-3.5, -0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a6 = Arrow(start = [-3.5, -0.5, 0], end = [-4, 0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
         
         # animations:
         
