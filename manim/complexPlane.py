@@ -1,4 +1,5 @@
 from manim import *
+from colorThemes import *
 
 class Title(Scene):
     def construct(self):
@@ -9,6 +10,7 @@ class Title(Scene):
         self.play(FadeOut(title, shift = UP))
 
 class ComplexPlane(Scene):
+    COLORS = DARK_THEME
     def construct(self):
         # natural points
         points1 = [Dot().move_to([x, 0, 0]) for x in range(0, 8)]
@@ -53,11 +55,11 @@ class ComplexPlane(Scene):
         # complex plane
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )

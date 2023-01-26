@@ -1,18 +1,18 @@
 from manim import *
+from colorThemes import *
 import absoluteValue
 import multiplication
 import conjugate
 import division
 
 class ComplexNumbers(Scene):
-    COLORS = {
-        "highlight": DARK_BLUE
-    }
+    COLORS = LIGHT_THEME
     def construct(self):
-        self.camera.background_color = WHITE
-        Tex.set_default(color = BLACK)
-        Mobject.set_default(color = BLACK)
-        Dot.set_default(color = BLACK)
+        self.camera.background_color = self.COLORS["background"]
+        Tex.set_default(color = self.COLORS["foreground"])
+        Mobject.set_default(color = self.COLORS["foreground"])
+        Dot.set_default(color = self.COLORS["foreground"])
+        
         self.wait(1)
         absoluteValue.Title.construct(self)
         absoluteValue.Abs.construct(self)

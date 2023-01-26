@@ -1,4 +1,5 @@
 from manim import *
+from colorThemes import *
 import math
 import numpy
 
@@ -14,9 +15,7 @@ label1Text = ""
 label1Save = None
 
 class Multiplication(Scene):
-    COLORS = {
-        "highlight": BLUE
-    }
+    COLORS = DARK_THEME
     def construct(self):
         p1r = ValueTracker(1)
         p1i = ValueTracker(0)
@@ -24,11 +23,11 @@ class Multiplication(Scene):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
@@ -101,18 +100,16 @@ class Multiplication(Scene):
         self.wait(1)
 
 class TransformedPlane(Scene):
-    COLORS = {
-        "highlight": BLUE
-    }
+    COLORS = DARK_THEME
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
@@ -209,18 +206,16 @@ class TransformedPlane(Scene):
         self.wait(1)
 
 class Examples(Scene):
-    COLORS = {
-        "highlight": BLUE
-    }
+    COLORS = DARK_THEME
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )

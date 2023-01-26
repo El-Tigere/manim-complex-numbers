@@ -1,4 +1,5 @@
 from manim import *
+from colorThemes import *
 import math
 import numpy
 
@@ -11,17 +12,15 @@ class Title(Scene):
         self.play(FadeOut(title, shift = UP))
 
 class TransformedPlane(Scene):
-    COLORS = {
-        "highlight": BLUE
-    }
+    COLORS = DARK_THEME
     def construct(self):
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
