@@ -1,4 +1,5 @@
 from manim import *
+from colorThemes import *
 
 class Title(Scene):
     def construct(self):
@@ -9,15 +10,16 @@ class Title(Scene):
         self.play(FadeOut(title, shift = UP))
 
 class Abs(Scene):
+    COLORS = DARK_THEME
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
@@ -36,15 +38,16 @@ class Abs(Scene):
         l1 = Tex("a+bi").move_to([3.75, 2, 0])
         
         # triangle
-        arrow1 = DoubleArrow([0, 0, 0], [3, 2, 0], stroke_width = 5, buff = 0).set_color(BLUE)
-        line1 = DashedLine([0, 0, 0], [3, 0, 0], dash_length = 0.2, stroke_width = 5).set_color(BLUE)
-        line2 = DashedLine([3, 0, 0], [3, 2, 0], dash_length = 0.2, stroke_width = 5).set_color(BLUE)
-        #triangleLabels = VGroup()
-        l2 = Tex("a").move_to([1.5, -0.25, 0]).set_color(BLUE)
-        l3 = Tex("b").move_to([3.25, 1, 0]).set_color(BLUE)
-        l4 = Tex("$\\sqrt{a^2+b^2}$").move_to([0.75, 1.5, 0]).set_color(BLUE)
+        arrow1 = DoubleArrow([0, 0, 0], [3, 2, 0], stroke_width = 5, buff = 0).set_color(self.COLORS["highlight"])
+        line1 = DashedLine([0, 0, 0], [3, 0, 0], dash_length = 0.2, stroke_width = 5).set_color(self.COLORS["highlight"])
+        line2 = DashedLine([3, 0, 0], [3, 2, 0], dash_length = 0.2, stroke_width = 5).set_color(self.COLORS["highlight"])
         
-        # animations:
+        # triangle labels
+        l2 = Tex("a").move_to([1.5, -0.25, 0]).set_color(self.COLORS["highlight"])
+        l3 = Tex("b").move_to([3.25, 1, 0]).set_color(self.COLORS["highlight"])
+        l4 = Tex("$\\sqrt{a^2+b^2}$").move_to([0.75, 1.5, 0]).set_color(self.COLORS["highlight"])
+        
+        # animation:
         
         # create complex plane
         self.play(Create(plane1), Create(ax))
@@ -63,7 +66,12 @@ class Abs(Scene):
         
         # create hypotenuse label
         self.play(Create(l4))
-        self.wait(3)
+        self.wait(1)
+        
+        # remove objects
+        self.play(FadeOut(p1), FadeOut(l1), FadeOut(arrow1), FadeOut(line1), FadeOut(line2), FadeOut(l2), FadeOut(l3), FadeOut(l4))
+        self.wait(1)
+        self.play(FadeOut(plane1), FadeOut(ax))
 
 class ImaginaryBase(LinearBase):
     def __init__(self, scale_factor: float = 1, custom_labels: bool = True):

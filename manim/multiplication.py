@@ -1,4 +1,5 @@
 from manim import *
+from colorThemes import *
 import math
 import numpy
 
@@ -14,30 +15,51 @@ label1Text = ""
 label1Save = None
 
 class Multiplication(Scene):
+    COLORS = DARK_THEME
     def construct(self):
         p1r = ValueTracker(1)
         p1i = ValueTracker(0)
         
-        bgPlane = NumberPlane(
-            x_range = [-10, 10, 1],
-            y_range = [-10, 10, 1],
+        # number planes and axis
+        plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GRAY
+                "stroke_color": self.COLORS["midground"],
+                "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
+        ax = Axes(
+            x_length = 20,
+            y_length = 20,
+            x_range = [-10, 10, 1],
+            y_range = [-10, 10, 1],
+            y_axis_config = {
+                "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
+            }
+        ).add_coordinates()
+        #bgPlane = NumberPlane(
+        #    x_range = [-10, 10, 1],
+        #    y_range = [-10, 10, 1],
+        #    axis_config = {
+        #        "stroke_color": GRAY
+        #    },
+        #    background_line_style = {
+        #        "stroke_color": GREY,
+        #        "stroke_opacity": 0.5
+        #    }
+        #)
         fgPlane = always_redraw(lambda:
             NumberPlane(
                 x_range = [-10, 10, 1],
                 y_range = [-10, 10, 1],
                 axis_config = {
-                    "stroke_color": BLUE
+                    "stroke_color": self.COLORS["highlight"]
                 },
                 background_line_style = {
-                    "stroke_color": BLUE,
+                    "stroke_color": self.COLORS["highlight"],
                     "stroke_opacity": 0.5
                 }
             )
@@ -58,28 +80,36 @@ class Multiplication(Scene):
             return label1Save.move_to([p1r.get_value(), p1i.get_value() - 0.4, 0])
         label1 = always_redraw(getLabel1)
         
+        # add complex plane in background (no animation)
+        self.add(plane1, ax)
         self.play(Create(fgPlane))
-        self.add(bgPlane)
-        self.bring_to_back(bgPlane)
+        #self.add(bgPlane)
+        #self.bring_to_back(bgPlane)
         self.play(Create(point0))
         self.play(Create(point1), Create(label1))
         self.wait(1)
-        self.play(p1i.animate.set_value(2))
+        self.play(p1i.animate.set_value(1), p1r.animate.set_value(2))
+        self.wait(1)
         self.play(p1r.animate.set_value(-2))
         self.play(p1i.animate.set_value(-3))
-        self.play(p1i.animate.set_value(1), p1r.animate.set_value(2))
-        self.wait(3)
+        self.play(p1i.animate.set_value(2), p1r.animate.set_value(1))
+        self.wait(1)
+        
+        # remove objects
+        self.play(FadeOut(point0), FadeOut(point1), FadeOut(label1), FadeOut(fgPlane))
+        self.wait(1)
 
 class TransformedPlane(Scene):
+    COLORS = DARK_THEME
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
@@ -94,11 +124,11 @@ class TransformedPlane(Scene):
         ).add_coordinates()
         plane2 = NumberPlane(
             axis_config = {
-                "stroke_color": BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 1
             },
             background_line_style = {
-                "stroke_color": BLUE,
+                "stroke_color": self.COLORS["highlight"],
                 "stroke_opacity": 0.5
             }
         ).rotate(-numpy.arctan2(2, 1)).scale(math.sqrt(5))
@@ -116,18 +146,18 @@ class TransformedPlane(Scene):
         l1 = Tex("$z_{1}$").add_updater(lambda x: x.move_to([p1r.get_value() + .3, p1i.get_value() + .3, 0]))
         p2 = Dot().move_to([p2r, p2i, 0])
         l2 = Tex("$z_{2}$").add_updater(lambda x: x.move_to([p2r + .3, p2i + .3, 0]))
-        p3 = Dot(color = BLUE).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
+        p3 = Dot(color = self.COLORS["highlight"]).add_updater(lambda x: x.move_to([p3r(), p3i(), 0]))
         l3 = Tex("$z_{3}$").add_updater(lambda x: x.move_to([p3r() + .3, p3i() - .3, 0]))
         
         # path of p3
-        path = TracedPath(traced_point_func = p3.get_center, stroke_color = BLUE)
+        path = TracedPath(traced_point_func = p3.get_center, stroke_color = self.COLORS["highlight"])
         
         # transformed plane labels
         tpl =  VGroup()
-        tpl.add(Tex("1").set_color(BLUE).move_to([2 - 0.2, 1 - 0.4, 0]))
-        tpl.add(Tex("-1").set_color(BLUE).move_to([-2 - 0.2, -1 - 0.4, 0]))
-        tpl.add(Tex("i").set_color(BLUE).move_to([-1 - 0.2, 2 - 0.4, 0]))
-        tpl.add(Tex("-i").set_color(BLUE).move_to([1 - 0.2, -2 - 0.4, 0]))
+        tpl.add(Tex("1").set_color(self.COLORS["highlight"]).move_to([2 - 0.2, 1 - 0.4, 0]))
+        tpl.add(Tex("-1").set_color(self.COLORS["highlight"]).move_to([-2 - 0.2, -1 - 0.4, 0]))
+        tpl.add(Tex("i").set_color(self.COLORS["highlight"]).move_to([-1 - 0.2, 2 - 0.4, 0]))
+        tpl.add(Tex("-i").set_color(self.COLORS["highlight"]).move_to([1 - 0.2, -2 - 0.4, 0]))
         
         # animation:
         
@@ -176,15 +206,16 @@ class TransformedPlane(Scene):
         self.wait(1)
 
 class Examples(Scene):
+    COLORS = DARK_THEME
     def construct(self):
         # number planes and axis
         plane1 = NumberPlane(
             axis_config = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0
             },
             background_line_style = {
-                "stroke_color": GREY,
+                "stroke_color": self.COLORS["midground"],
                 "stroke_opacity": 0.5
             }
         )
@@ -201,15 +232,15 @@ class Examples(Scene):
         # points
         p1 = Dot().move_to([1, 0.5, 0])
         p2 = Dot().move_to([-3, 2, 0])
-        p3 = Dot().set_color(BLUE).move_to([-4, 0.5, 0])
+        p3 = Dot().set_color(self.COLORS["highlight"]).move_to([-4, 0.5, 0])
         
         # arrows (badly organized)
         a1 = Arrow(start = [0, 0, 0], end = [1, 0.5, 0], buff = 0.05)
-        a2 = Arrow(start = [0, 0, 0], end = [-1, -0.5, 0], buff = 0.05).set_color(BLUE)
-        a3 = Arrow(start = [-1, -0.5, 0], end = [-2, -1, 0], buff = 0.05).set_color(BLUE)
-        a4 = Arrow(start = [-2, -1, 0], end = [-3, -1.5, 0], buff = 0.05).set_color(BLUE)
-        a5 = Arrow(start = [-3, -1.5, 0], end = [-3.5, -0.5, 0], buff = 0.05).set_color(BLUE)
-        a6 = Arrow(start = [-3.5, -0.5, 0], end = [-4, 0.5, 0], buff = 0.05).set_color(BLUE)
+        a2 = Arrow(start = [0, 0, 0], end = [-1, -0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a3 = Arrow(start = [-1, -0.5, 0], end = [-2, -1, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a4 = Arrow(start = [-2, -1, 0], end = [-3, -1.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a5 = Arrow(start = [-3, -1.5, 0], end = [-3.5, -0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
+        a6 = Arrow(start = [-3.5, -0.5, 0], end = [-4, 0.5, 0], buff = 0.05).set_color(self.COLORS["highlight"])
         
         # animations:
         
@@ -235,6 +266,11 @@ class Examples(Scene):
         # show p3 (result)
         self.play(Create(p3))
         self.wait(1)
+        
+        # remove objects
+        self.play(FadeOut(a1), FadeOut(a2), FadeOut(a3), FadeOut(a4), FadeOut(a5), FadeOut(a6), FadeOut(p1), FadeOut(p2), FadeOut(p3))
+        self.wait(1)
+        self.play(FadeOut(plane1), FadeOut(ax))
 
 class ImaginaryBase(LinearBase):
     def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
