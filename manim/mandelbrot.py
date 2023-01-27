@@ -1,5 +1,6 @@
 from manim import *
 from colorThemes import *
+from axisLabels import *
 
 class Title(Scene):
     def construct(self):

@@ -1,5 +1,6 @@
 from manim import *
 from colorThemes import *
+from axisLabels import *
 import math
 import numpy
 
@@ -88,10 +89,3 @@ class Conjugate(Scene):
         self.play(FadeOut(p1), FadeOut(l1), FadeOut(p2), FadeOut(l2), FadeOut(plane2), FadeOut(a1), FadeOut(a2), FadeOut(a3), FadeOut(p3))
         self.wait(1)
         self.play(FadeOut(plane1), FadeOut(ax))
-
-class ImaginaryBase(LinearBase):
-    def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
-        super().__init__(scale_factor)
-        self.custom_labels = custom_labels
-    def get_custom_labels(self, val_range):
-        return [("i" if i == 1 else ("-i" if i == -1 else f"{round(i)}i")) for i in val_range]
