@@ -1,5 +1,6 @@
 from manim import *
 from colorThemes import *
+from axisLabels import *
 import math
 import numpy
 
@@ -98,6 +99,7 @@ class Multiplication(Scene):
         # remove objects
         self.play(FadeOut(point0), FadeOut(point1), FadeOut(label1), FadeOut(fgPlane))
         self.wait(1)
+        self.remove(plane1, ax)
 
 class TransformedPlane(Scene):
     COLORS = DARK_THEME
@@ -204,6 +206,7 @@ class TransformedPlane(Scene):
         self.play(FadeOut(plane2), FadeOut(tpl))
         self.play(FadeOut(p2), FadeOut(l2))
         self.wait(1)
+        self.remove(plane1, ax)
 
 class Examples(Scene):
     COLORS = DARK_THEME
@@ -271,10 +274,3 @@ class Examples(Scene):
         self.play(FadeOut(a1), FadeOut(a2), FadeOut(a3), FadeOut(a4), FadeOut(a5), FadeOut(a6), FadeOut(p1), FadeOut(p2), FadeOut(p3))
         self.wait(1)
         self.play(FadeOut(plane1), FadeOut(ax))
-
-class ImaginaryBase(LinearBase):
-    def __init__(self, scale_factor: float = 1, custom_labels: bool = True):
-        super().__init__(scale_factor)
-        self.custom_labels = custom_labels
-    def get_custom_labels(self, val_range):
-        return [("i" if i == 1 else ("-i" if i == -1 else f"{round(i)}i")) for i in val_range]
