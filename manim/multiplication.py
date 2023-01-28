@@ -99,6 +99,7 @@ class Multiplication(Scene):
         # remove objects
         self.play(FadeOut(point0), FadeOut(point1), FadeOut(label1), FadeOut(fgPlane))
         self.wait(1)
+        self.remove(plane1, ax)
 
 class TransformedPlane(Scene):
     COLORS = DARK_THEME
@@ -205,6 +206,7 @@ class TransformedPlane(Scene):
         self.play(FadeOut(plane2), FadeOut(tpl))
         self.play(FadeOut(p2), FadeOut(l2))
         self.wait(1)
+        self.remove(plane1, ax)
 
 class Examples(Scene):
     COLORS = DARK_THEME
