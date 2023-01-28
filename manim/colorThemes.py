@@ -9,7 +9,7 @@ DARK_THEME = {
 
 LIGHT_THEME = {
     "background": WHITE,
-    "midground": GREEN,
+    "midground": GRAY,
     "foreground": BLACK,
-    "highlight": RED
+    "highlight": DARK_BLUE
 }

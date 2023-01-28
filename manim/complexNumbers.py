@@ -16,12 +16,12 @@ class ComplexNumbers(Scene):
         Dot.set_default(color = self.COLORS["foreground"])
         
         self.wait(1)
-        absoluteValue.Title.construct(self)
-        absoluteValue.Abs.construct(self)
         multiplication.Title.construct(self)
         multiplication.TransformedPlane.construct(self)
         multiplication.Multiplication.construct(self)
         multiplication.Examples.construct(self)
+        absoluteValue.Title.construct(self)
+        absoluteValue.Abs.construct(self)
         conjugate.Title.construct(self)
         conjugate.Conjugate.construct(self)
         division.Title.construct(self)
@@ -37,5 +37,7 @@ class ComplexNumbersExtra(Scene):
         Dot.set_default(color = self.COLORS["foreground"])
         
         self.wait(1)
-        
+        zeroDivision.Title.construct(self)
+        zeroDivision.TransformedPlane.construct(self)
+        zeroDivision.InfinityDirection.construct(self)
         self.wait(3)
