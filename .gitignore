@@ -1,5 +1,6 @@
 /manim/__pycache__
 /manim/media
+/manim/resources
 
 /latex/**/*.aux
 /latex/**/*.fls
