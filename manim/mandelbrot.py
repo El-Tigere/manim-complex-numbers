@@ -65,10 +65,22 @@ class Mandelbrot(MovingCameraScene):
         circle = Circle(radius = 2).set_color(self.COLORS["highlight"])
         
         # mandelbrot images
-        image1 = ImageMobject("resources/frame1.png")
+        image1 = ImageMobject("resources/mandelbrot.jpeg")
         image1.height = 4
-        image2 = ImageMobject("resources/frame2.png")
+        image2 = ImageMobject("resources/frame1.png")
         image2.height = 4
+        image3 = ImageMobject("resources/frame2.png")
+        image3.height = 4
+        image4 = ImageMobject("resources/frame_^2.png")
+        image4.height = 4
+        image5 = ImageMobject("resources/frame_^3.png")
+        image5.height = 4
+        image6 = ImageMobject("resources/frame_^4.png")
+        image6.height = 4
+        image7 = ImageMobject("resources/frame_^2mal-1.7+^3.png")
+        image7.height = 4
+        image8 = ImageMobject("resources/frame_burningship.png")
+        image8.height = 4
         
         # animation:
         
@@ -104,7 +116,6 @@ class Mandelbrot(MovingCameraScene):
         
         # zoom in
         self.play(self.camera.frame.animate.set(height = 4))
-        self.play(FadeOut(circle))
         self.wait(1)
         
         # move c around again
@@ -112,14 +123,32 @@ class Mandelbrot(MovingCameraScene):
         self.wait(1)
         
         # remove example points and add images
-        self.play(FadeOut(pc, lc, pzSteps))
-        self.bring_to_back(image1)
+        self.play(FadeOut(pc), FadeOut(lc), FadeOut(pzSteps), FadeOut(circle))
         self.play(FadeIn(image1))
-        self.play(FadeOut(plane1), FadeOut(ax))
         self.wait(1)
         self.play(FadeIn(image2))
-        self.remove(image1)
+        self.play(FadeOut(image1))
+        self.wait(1)
+        self.play(FadeIn(image3))
+        self.remove(image2)
+        self.wait(1)
+        self.play(FadeIn(image4))
+        self.remove(image3)
+        self.wait(1)
+        self.play(FadeIn(image5))
+        self.remove(image4)
+        self.wait(1)
+        self.play(FadeIn(image6))
+        self.remove(image5)
+        self.wait(1)
+        self.play(FadeIn(image7))
+        self.remove(image6)
+        self.wait(1)
+        self.play(FadeIn(image8))
+        self.remove(image7)
         self.wait(1)
         
         # remove objects
-        self.play(FadeOut(image2))
+        self.play(FadeOut(image8))
+        self.wait(1)
+        self.play(FadeOut(plane1), FadeOut(ax))
