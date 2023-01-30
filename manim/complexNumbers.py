@@ -8,7 +8,7 @@ import mandelbrot
 import zeroDivision
 
 class ComplexNumbers(Scene):
-    COLORS = LIGHT_THEME
+    COLORS = DARK_THEME
     def construct(self):
         self.camera.background_color = self.COLORS["background"]
         Tex.set_default(color = self.COLORS["foreground"])
@@ -28,8 +28,8 @@ class ComplexNumbers(Scene):
         division.TransformedPlane.construct(self)
         self.wait(3)
 
-class ComplexNumbersExtra(Scene):
-    COLORS = LIGHT_THEME
+class ComplexNumbersExtra(MovingCameraScene):
+    COLORS = DARK_THEME
     def construct(self):
         self.camera.background_color = self.COLORS["background"]
         Tex.set_default(color = self.COLORS["foreground"])
@@ -37,6 +37,8 @@ class ComplexNumbersExtra(Scene):
         Dot.set_default(color = self.COLORS["foreground"])
         
         self.wait(1)
+        mandelbrot.Title.construct(self)
+        mandelbrot.Mandelbrot.construct(self)
         zeroDivision.Title.construct(self)
         zeroDivision.TransformedPlane.construct(self)
         zeroDivision.InfinityDirection.construct(self)
