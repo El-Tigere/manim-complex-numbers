@@ -22,28 +22,35 @@
 
 \pgfplotsset{compat=1.18}
 
+\usepackage{subfig}
+
 \begin{document}
 
     \large  
 
-    \section{Rechnen mit Komplexe Zahlen $\mathbb{C}$}
+    \section{Arithmetik mit Komplexe Zahlen $\mathbb{C}$}
 
-    \subsection{Arithmetik}
-
-    \subsection{Betrag}
-
-    \input{betrag}
-
-    \subsection{Konjugation}
-
-    \input{konjugation}
-
-    \subsection{Arithmetik}
+    \subsection{Addition, Subtraktion und Multiplikation}
 
     \input{arithmetik}
 
-    \section{Aufgaben}
+    \subsection{Betrag und Konjugation}
 
+    \begin{figure}[!htb]
+        \centering
+        \subfloat[Betrag von Komplexen Zahlen]{{\input{betrag} }}
+        \qquad
+        \subfloat[Konjugation von Komplexen Zahlen]{{\input{konjugation}}}
+        %\caption{2 Figures side by side}
+        %\label{fig:example}
+    \end{figure}
+
+    \subsection{Division}
+
+    \input{division}
+
+    \section{Aufgaben}
+    
     \input{aufgaben}
 
 \end{document}
