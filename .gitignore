@@ -1,6 +1,6 @@
 /manim/__pycache__
 /manim/media
-/manim/resources
+/manim/resources/mandelbrot.*
 
 /latex/**/*.aux
 /latex/**/*.fls
