@@ -31,7 +31,7 @@ class TransformedPlane(Scene):
             x_range = [-10, 10, 1],
             y_range = [-10, 10, 1],
             y_axis_config = {
-                "scaling": ImaginaryBase(scale_factor = 1, custom_labels = True)
+                "scaling": ImaginaryBase()
             }
         ).add_coordinates()
         plane2 = NumberPlane(
